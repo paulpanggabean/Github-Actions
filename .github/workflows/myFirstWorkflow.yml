@@ -4,12 +4,12 @@ on: push
 jobs:
   job1:
     name: JOB1
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps: 
       - name: Running single Command in job
         run:  echo "Hi this is my first Github Workflow" 
       - name: Checking OS Release for Github Hosted Runner
-        run:  sw_vers
+        run:  cat /etc/os-release
       - name: Calling  sleep
         run: sleep 20
   
@@ -24,14 +24,17 @@ jobs:
           echo "Hi from AVD"
           echo "Current time is `date`" 
           sleep 20
-
+ 
   job3:
     name: JOB3
     needs: job1
-    runs-on: macos-latest
+    runs-on: windows-latest
     steps:
       - name: Job with single dependency
         run: sleep 10
+      - name: Checking Runner info
+        shell: pwsh
+        run: get-computerinfo
 
   job4:
     name: JOB4
@@ -40,4 +43,6 @@ jobs:
     steps:
       - name: Job for multiple dependencies
         run: sleep 10
+      - name: Checking Runner Info
+        run: sw _vers
     
